@@ -74,7 +74,7 @@ function Assessment() {
     const percent = (sc / questions.length) * 100;
     setScore(percent);
     setSubmitted(true);
-    const res = await fetch('http://localhost:3001/api/assessment', {
+    const res = await fetch('https://mbjr-assessment-backend.vercel.app/api/assessment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ score: percent, name, state, orgType, orgName, mobile })

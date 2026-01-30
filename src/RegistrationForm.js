@@ -7,7 +7,7 @@ function RegistrationForm() {
           const coordsObj = { lat: pos.coords.latitude, lng: pos.coords.longitude };
           setCoords(coordsObj);
           // Call backend to resolve city/state
-          const res = await fetch('http://localhost:3001/api/geocode', {
+          const res = await fetch('https://mbjr-assessment-backend.vercel.app/api/geocode', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ location: `${coordsObj.lat},${coordsObj.lng}` })
@@ -40,7 +40,7 @@ function RegistrationForm() {
   const [submitted, setSubmitted] = useState(false);
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch('http://localhost:3001/api/register', {
+    const res = await fetch('https://mbjr-assessment-backend.vercel.app/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, mobile, state, orgType, orgName, location: locationData })
@@ -61,7 +61,7 @@ function RegistrationForm() {
         const coordsObj = { lat: pos.coords.latitude, lng: pos.coords.longitude };
         setCoords(coordsObj);
         // Call backend to resolve city/state
-        const res = await fetch('http://localhost:3001/api/geocode', {
+        const res = await fetch('https://mbjr-assessment-backend.vercel.app/api/geocode', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ location: `${coordsObj.lat},${coordsObj.lng}` })
