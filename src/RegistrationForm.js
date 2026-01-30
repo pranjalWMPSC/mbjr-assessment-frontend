@@ -51,6 +51,8 @@ function RegistrationForm() {
     setAddress(data.address || '');
     setResolvedState(data.state || '');
     setSubmitted(true);
+    // Set registration flag for protected routes
+    sessionStorage.setItem('registered', 'true');
     setTimeout(() => {
       navigate('/congrats', { state: { name, state, orgType, orgName, mobile } });
     }, 2000);
