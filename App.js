@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import QRScanner from './src/QRScanner';
@@ -8,8 +9,15 @@ import Certificate from './src/Certificate';
 import AdminPanel from './src/AdminPanel';
 import AdminLogin from './src/AdminLogin';
 
+
 function App() {
-  const navigate = window.reactRouterNavigate || null;
+  const [adminAuthed, setAdminAuthed] = React.useState(() => {
+    return sessionStorage.getItem('adminAuthed') === 'true';
+  });
+  const handleAdminLogin = () => {
+    setAdminAuthed(true);
+    sessionStorage.setItem('adminAuthed', 'true');
+  };
   return (
     <Router>
       <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 9999 }}>
@@ -24,6 +32,7 @@ function App() {
         <Route path="/video" element={<VideoPlayer />} />
         <Route path="/assessment" element={<Assessment />} />
         <Route path="/certificate" element={<Certificate />} />
+        <Route path="/admin" element={adminAuthed ? <AdminPanel /> : <AdminLogin onLogin={handleAdminLogin} />} />
       </Routes>
     </Router>
   );
