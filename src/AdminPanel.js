@@ -5,6 +5,7 @@ import AdminCharts from './AdminCharts';
 const API_BASE_URL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_BASE_URL : process.env.REACT_APP_API_BASE_URL_PROD;
 
 
+
 function AdminPanel() {
   const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,19 +13,32 @@ function AdminPanel() {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [tab, setTab] = useState('analytics');
+  const [total, setTotal] = useState(0);
   const pageSize = 10;
 
-
+  // Fetch paginated registrations for table
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/admin/registrations`)
+    setLoading(true);
+    fetch(`${API_BASE_URL}/api/admin/registrations?page=${page}&limit=${pageSize}`)
       .then(res => res.json())
       .then(data => {
         setRegistrations(data.registrations || []);
+        setTotal(data.total || 0);
         setLoading(false);
       })
       .catch(err => {
         setError('Failed to load registrations');
         setLoading(false);
+      });
+  }, [page]);
+
+  // Fetch up to 100 registrations for analytics only once
+  const [analyticsRegs, setAnalyticsRegs] = useState([]);
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/admin/registrations?page=1&limit=100`)
+      .then(res => res.json())
+      .then(data => {
+        setAnalyticsRegs(data.registrations || []);
       });
   }, []);
 
@@ -32,7 +46,8 @@ function AdminPanel() {
     window.open(`${API_BASE_URL}/api/admin/certificate?mobile=${mobile}`, '_blank');
   };
 
-  // Search and pagination logic
+
+  // Search and pagination logic (client-side search on current page)
   const filtered = registrations.filter(r => {
     const q = search.toLowerCase();
     return (
@@ -42,8 +57,8 @@ function AdminPanel() {
       r.state?.toLowerCase().includes(q)
     );
   });
-  const totalPages = Math.ceil(filtered.length / pageSize);
-  const paginated = filtered.slice((page - 1) * pageSize, page * pageSize);
+  const totalPages = Math.ceil(total / pageSize);
+  const paginated = filtered;
 
 
   // Logout handler
@@ -100,7 +115,7 @@ function AdminPanel() {
       {/* Tab Content */}
       {tab === 'analytics' && (
         <div>
-          <AdminCharts registrations={registrations} />
+          <AdminCharts registrations={analyticsRegs} />
         </div>
       )}
       {tab === 'registrations' && (
