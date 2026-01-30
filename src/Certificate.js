@@ -15,7 +15,7 @@ function Certificate() {
   const [pdfUrl, setPdfUrl] = useState('');
   useEffect(() => {
     async function fetchCertificate() {
-      const res = await fetch('https://mbjr-assessment-backend.vercel.app/api/certificate', {
+      const res = await fetch('https://mbjr-assessment-backend.onrender.com/api/certificate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, mobile })

@@ -10,7 +10,7 @@ function AdminPanel() {
   const pageSize = 10;
 
   useEffect(() => {
-    fetch('https://mbjr-assessment-backend.vercel.app/api/admin/registrations')
+    fetch('https://mbjr-assessment-backend.onrender.com/api/admin/registrations')
       .then(res => res.json())
       .then(data => {
         setRegistrations(data.registrations || []);
@@ -23,7 +23,7 @@ function AdminPanel() {
   }, []);
 
   const handleDownload = async (mobile) => {
-    window.open(`https://mbjr-assessment-backend.vercel.app/api/admin/certificate?mobile=${mobile}`, '_blank');
+    window.open(`https://mbjr-assessment-backend.onrender.com/api/admin/certificate?mobile=${mobile}`, '_blank');
   };
 
   // Search and pagination logic
