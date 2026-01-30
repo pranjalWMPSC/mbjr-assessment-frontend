@@ -7,7 +7,8 @@ function RegistrationForm() {
           const coordsObj = { lat: pos.coords.latitude, lng: pos.coords.longitude };
           setCoords(coordsObj);
           // Call backend to resolve city/state
-          const res = await fetch('https://mbjr-assessment-backend.onrender.com/api/geocode', {
+          const API_BASE_URL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_BASE_URL : process.env.REACT_APP_API_BASE_URL_PROD;
+          const res = await fetch(`${API_BASE_URL}/api/geocode`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ location: `${coordsObj.lat},${coordsObj.lng}` })
@@ -40,7 +41,8 @@ function RegistrationForm() {
   const [submitted, setSubmitted] = useState(false);
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch('https://mbjr-assessment-backend.onrender.com/api/register', {
+    const API_BASE_URL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_BASE_URL : process.env.REACT_APP_API_BASE_URL_PROD;
+    const res = await fetch(`${API_BASE_URL}/api/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, mobile, state, orgType, orgName, location: locationData })
@@ -61,7 +63,8 @@ function RegistrationForm() {
         const coordsObj = { lat: pos.coords.latitude, lng: pos.coords.longitude };
         setCoords(coordsObj);
         // Call backend to resolve city/state
-        const res = await fetch('https://mbjr-assessment-backend.onrender.com/api/geocode', {
+        const API_BASE_URL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_BASE_URL : process.env.REACT_APP_API_BASE_URL_PROD;
+        const res = await fetch(`${API_BASE_URL}/api/geocode`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ location: `${coordsObj.lat},${coordsObj.lng}` })

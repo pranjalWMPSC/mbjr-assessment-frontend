@@ -74,7 +74,8 @@ function Assessment() {
     const percent = (sc / questions.length) * 100;
     setScore(percent);
     setSubmitted(true);
-    const res = await fetch('https://mbjr-assessment-backend.onrender.com/api/assessment', {
+    const API_BASE_URL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_BASE_URL : process.env.REACT_APP_API_BASE_URL_PROD;
+    const res = await fetch(`${API_BASE_URL}/api/assessment`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ score: percent, name, state, orgType, orgName, mobile })

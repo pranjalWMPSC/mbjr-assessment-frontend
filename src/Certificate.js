@@ -3,19 +3,11 @@ import { useLocation } from 'react-router-dom';
 function Certificate() {
   const location = useLocation();
   let { name, state, orgType, orgName, mobile } = location.state || {};
-  // If test param is present, use dummy data
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('test')) {
-    name = 'Test User';
-    state = 'TestState';
-    orgType = 'TestOrgType';
-    orgName = 'TestOrgName';
-    mobile = '9999999999';
-  }
   const [pdfUrl, setPdfUrl] = useState('');
   useEffect(() => {
     async function fetchCertificate() {
-      const res = await fetch('https://mbjr-assessment-backend.onrender.com/api/certificate', {
+      const API_BASE_URL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_BASE_URL : process.env.REACT_APP_API_BASE_URL_PROD;
+      const res = await fetch(`${API_BASE_URL}/api/certificate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, mobile })
