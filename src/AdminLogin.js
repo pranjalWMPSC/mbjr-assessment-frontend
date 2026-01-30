@@ -7,14 +7,21 @@ function AdminLogin({ onLogin }) {
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
 
+  // Add all allowed admin emails here
+  const allowedAdmins = [
+    'pranjal@wmpsc.in',
+    'rohit@wmpsc.in',
+    // Add more admin emails below
+  ];
+
   const handleGoogleSuccess = (credentialResponse) => {
     try {
       const decoded = jwtDecode(credentialResponse.credential);
-      if (decoded.email === 'pranjal@wmpsc.in') {
+      if (allowedAdmins.includes(decoded.email)) {
         setEmail(decoded.email);
         onLogin();
       } else {
-        setError('Unauthorized: Only pranjal@wmpsc.in can access admin panel.');
+        setError('Unauthorized: Only authorized admins can access admin panel.');
       }
     } catch (e) {
       setError('Google authentication failed.');
