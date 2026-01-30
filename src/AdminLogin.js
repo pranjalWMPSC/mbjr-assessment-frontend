@@ -29,11 +29,13 @@ function AdminLogin({ onLogin }) {
     <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#f8fafc' }}>
       <div style={{ background: '#fff', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 12px rgba(0,0,0,0.08)', display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: 320 }}>
         <h2 style={{ textAlign: 'center', color: '#6366f1' }}>Admin Login</h2>
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={handleGoogleError}
-          useOneTap
-        />
+        <div style={{ width: 280, margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            useOneTap
+          />
+        </div>
         {error && <div style={{ color: '#ef4444', textAlign: 'center' }}>{error}</div>}
       </div>
     </div>
