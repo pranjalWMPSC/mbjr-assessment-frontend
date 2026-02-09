@@ -56,6 +56,7 @@ function Assessment() {
   const [responses, setResponses] = useState(Array(questions.length).fill(''));
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { name, state, orgType, orgName, mobile } = location.state || {};
@@ -67,27 +68,35 @@ function Assessment() {
   const [passed, setPassed] = useState(false);
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
     let sc = 0;
     responses.forEach((resp, idx) => {
       if (resp === questions[idx].answer) sc += 1;
     });
     const percent = (sc / questions.length) * 100;
     setScore(percent);
-    setSubmitted(true);
     const API_BASE_URL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_BASE_URL : process.env.REACT_APP_API_BASE_URL_PROD;
-    const res = await fetch(`${API_BASE_URL}/api/assessment`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ score: percent, name, state, orgType, orgName, mobile })
-    });
-    const data = await res.json();
-    if (data.eligible) {
-      setPassed(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/assessment`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ score: percent, name, state, orgType, orgName, mobile })
+      });
+      const data = await res.json();
+      setPassed(!!data.eligible);
+    } finally {
+      setSubmitted(true);
+      setLoading(false);
     }
   };
   return (
     <>
-      {!submitted ? (
+      {loading && (
+        <div style={{ width: '100%', maxWidth: 400, textAlign: 'center', margin: '2rem auto', fontWeight: 600, color: '#6366f1', fontSize: '1.2rem' }}>
+          Checking your answers...
+        </div>
+      )}
+      {!submitted && !loading ? (
         <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           <h2 style={{ textAlign: 'center', color: '#6366f1', marginBottom: '0.5rem' }}>Assessment</h2>
           {questions.map((q, idx) => (

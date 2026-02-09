@@ -15,7 +15,7 @@ function VideoPlayer() {
   return (
     <div style={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.2rem' }}>
       <h2 style={{ textAlign: 'center', color: '#6366f1', marginBottom: '0.5rem' }}>Watch Video</h2>
-      <video style={{ width: '100%', borderRadius: '12px', marginBottom: '1rem' }} controls onEnded={() => setVideoEnded(true)}>
+      <video style={{ width: '100%', borderRadius: '12px', marginBottom: '1rem' }} controls onEnded={() => setVideoEnded(true)} draggable={false}>
         <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
