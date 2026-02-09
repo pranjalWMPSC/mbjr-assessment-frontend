@@ -86,9 +86,9 @@ function Assessment() {
     }
   };
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%)', fontFamily: 'Inter, Arial, sans-serif', padding: '1rem' }}>
+    <>
       {!submitted ? (
-        <form onSubmit={handleSubmit} style={{ background: '#fff', borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', padding: '2rem', width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+        <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           <h2 style={{ textAlign: 'center', color: '#6366f1', marginBottom: '0.5rem' }}>Assessment</h2>
           {questions.map((q, idx) => (
             <div key={idx} style={{ marginBottom: '1rem' }}>
@@ -106,7 +106,7 @@ function Assessment() {
           <button type="submit" style={{ background: 'linear-gradient(90deg, #6366f1 0%, #818cf8 100%)', color: '#fff', border: 'none', borderRadius: '8px', padding: '0.8rem', fontWeight: 600, fontSize: '1.1rem', cursor: 'pointer', boxShadow: '0 2px 8px rgba(99,102,241,0.08)' }}>Submit</button>
         </form>
       ) : (
-        <div style={{ background: '#fff', borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', padding: '2rem', width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.2rem', animation: 'fadeIn 1s' }}>
+        <div style={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.2rem', animation: 'fadeIn 1s' }}>
           {passed ? (
             <div style={{ textAlign: 'center', marginTop: '1rem' }}>
                     <h3 style={{ color: '#22c55e', fontWeight: 700 }}>Congratulations!</h3>
@@ -118,7 +118,7 @@ function Assessment() {
           )}
         </div>
       )}
-    </div>
+    </>
   );
 }
 export default Assessment;

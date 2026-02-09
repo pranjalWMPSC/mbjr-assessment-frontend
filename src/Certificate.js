@@ -18,8 +18,7 @@ function Certificate() {
     if (name && mobile) fetchCertificate();
   }, [name, mobile]);
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%)', fontFamily: 'Inter, Arial, sans-serif', padding: '1rem' }}>
-      <div style={{ background: '#fff', borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', padding: '2rem', width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.2rem' }}>
+    <div style={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.2rem' }}>
         <h2 style={{ textAlign: 'center', color: '#6366f1', marginBottom: '0.5rem' }}>Your Certificate</h2>
         {pdfUrl ? (
           <img src={pdfUrl} alt="Certificate" style={{ width: '100%', borderRadius: '12px', marginBottom: '1rem', boxShadow: '0 2px 8px rgba(99,102,241,0.08)', animation: 'fadeIn 1s' }} />
@@ -77,7 +76,6 @@ function Certificate() {
             </div>
           </>
         )}
-      </div>
     </div>
   );
 }

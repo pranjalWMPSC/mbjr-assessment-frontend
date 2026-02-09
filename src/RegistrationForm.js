@@ -86,12 +86,9 @@ function RegistrationForm() {
     'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Delhi', 'Jammu & Kashmir', 'Ladakh', 'Puducherry', 'Chandigarh', 'Andaman & Nicobar', 'Lakshadweep', 'Dadra & Nagar Haveli', 'Daman & Diu'
   ];
   return (
-    <div style={{
-      minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%)', fontFamily: 'Inter, Arial, sans-serif', padding: '1rem'
+    <form onSubmit={handleSubmit} style={{
+      background: 'none', boxShadow: 'none', borderRadius: 0, padding: 0, width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', gap: '1.2rem'
     }}>
-      <form onSubmit={handleSubmit} style={{
-        background: '#fff', borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', padding: '2rem', width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '1.2rem'
-      }}>
         <h2 style={{ textAlign: 'center', color: '#6366f1', marginBottom: '0.5rem' }}>Registration</h2>
         {/* Location coordinates are not shown to the user */}
         {/* Location is now requested automatically on mount */}
@@ -123,8 +120,7 @@ function RegistrationForm() {
             <div style={{ fontSize: '0.95rem', marginTop: '0.5rem' }}>State: {resolvedState || 'Not found'}</div>
           </div>
         )}
-      </form>
-    </div>
+    </form>
   );
 }
 export default RegistrationForm;
