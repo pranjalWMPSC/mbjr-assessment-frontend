@@ -153,7 +153,7 @@ function Assessment() {
       )}
       {!submitted && !loading && !resultLoading ? (
         <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-          <h2 style={{ textAlign: 'center', color: '#6366f1', marginBottom: '0.5rem' }}>Assessment</h2>
+          <h2 style={{ textAlign: 'center', color: '#6366f1', marginBottom: '0.5rem' }}>Quiz</h2>
           {questions.map((q, idx) => (
             <div key={idx} style={{ marginBottom: '1rem' }}>
               <p style={{ color: '#64748b', fontWeight: 600 }}>{q.question}</p>
