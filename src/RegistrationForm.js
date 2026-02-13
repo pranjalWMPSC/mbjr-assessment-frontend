@@ -106,7 +106,7 @@ function RegistrationForm() {
     <form onSubmit={handleSubmit} style={{
       background: 'none', boxShadow: 'none', borderRadius: 0, padding: 0, width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', gap: '1.2rem'
     }}>
-        <h2 style={{ textAlign: 'center', color: '#6366f1', marginBottom: '0.5rem' }}>Mai Bhi Jal Rakshak Registration</h2>
+        <h2 style={{ textAlign: 'center', color: '#6366f1', marginBottom: '0.5rem' }}>Main Bhi Jal Rakshak Registration</h2>
         {/* Location coordinates are not shown to the user */}
         {/* Location is now requested automatically on mount */}
         <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} required style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '1rem' }} />
