@@ -13,6 +13,7 @@ import AdminLogin from './AdminLogin';
 import MBJRLogo from './assets/MBJR_LOGO.png';
 import SkillIndiaLogo from './assets/skillindia_logo.png';
 import WMPSCLogo from './assets/wmpsc_logo.png';
+import './header.css';
 
 function App() {
 		const [adminAuthed, setAdminAuthed] = React.useState(() => {
@@ -37,64 +38,104 @@ function App() {
 		<Router>
 			<div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(120deg, #1a237e 0%, #6366f1 100%)', fontFamily: 'Inter, Roboto, Arial, sans-serif' }}>
 				{/* Modern Header with All Logos */}
-				   <header style={{
-					   display: 'flex',
-					   flexDirection: 'row',
-					   alignItems: 'center',
-					   justifyContent: 'space-between',
-					   padding: '1.2rem 2vw 1.2rem 2vw',
-					   background: 'linear-gradient(90deg, #1a237e 0%, #6366f1 100%)',
-					   borderRadius: '0 0 24px 24px',
-					   boxShadow: '0 4px 24px 0 rgba(30, 41, 59, 0.10)',
-					   margin: '0 0 2.5rem 0',
-					   width: '100%',
-					   maxWidth: 900,
-					   minWidth: 320
-				   }}>
-					   <img src={SkillIndiaLogo} alt="Skill India Logo" style={{ height: 48, objectFit: 'contain', background: 'white', borderRadius: 12, boxShadow: '0 2px 8px #1a237e22', padding: 8, flex: '0 0 auto' }} />
-					   <div style={{ flex: 1 }} />
-					   <img src={MBJRLogo} alt="Mai Bhi Jal Rakshak Logo" style={{ height: 60, objectFit: 'contain', background: 'white', borderRadius: 12, boxShadow: '0 2px 8px #1a237e22', padding: 8, flex: '0 0 auto' }} />
-					   <div style={{ flex: 1 }} />
-					   <img src={WMPSCLogo} alt="WMPSC Logo" style={{ height: 44, objectFit: 'contain', background: 'white', borderRadius: 12, boxShadow: '0 2px 8px #1a237e22', padding: 8, flex: '0 0 auto' }} />
-				   </header>
-				 <main style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100vw', boxSizing: 'border-box' }}>
-					 <div style={{
-						 width: '100%',
-						 maxWidth: 520,
-						 margin: '0 auto',
-						 background: 'white',
-						 borderRadius: 20,
-						 boxShadow: '0 8px 32px 0 rgba(30, 41, 59, 0.10)',
-						 padding: '2.5rem 1.5rem',
-						 minHeight: 400,
-						 display: 'flex',
-						 flexDirection: 'column',
-						 alignItems: 'center',
-						 justifyContent: 'center',
-						 boxSizing: 'border-box',
-					 }}>
-						 <Routes>
-					<Route path="/" element={<RegistrationForm />} />
-					<Route path="/qr" element={<QRScanner />} />
-					<Route path="/register" element={<RegistrationForm />} />
-					<Route path="/congrats" element={<Congrats />} />
-					<Route path="/video" element={
-						<ProtectedRoute>
-							<VideoPlayer />
-						</ProtectedRoute>
-					} />
-					<Route path="/assessment" element={
-						<ProtectedRoute>
-							<Assessment />
-						</ProtectedRoute>
-					} />
-					<Route path="/certificate" element={
-						<ProtectedRoute>
-							<Certificate />
-						</ProtectedRoute>
-					} />
-					<Route path="/admin" element={adminAuthed ? <AdminPanel /> : <AdminLogin onLogin={handleAdminLogin} />} />
-				</Routes>
+				 <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+					 <header className="header-mbjr">
+						 <img
+							 src={SkillIndiaLogo}
+							 alt="Skill India Logo"
+							 className="header-logo header-logo-skill"
+						 />
+						 <img
+							 src={MBJRLogo}
+							 alt="Mai Bhi Jal Rakshak Logo"
+							 className="header-logo header-logo-mbjr"
+						 />
+						 <img
+							 src={WMPSCLogo}
+							 alt="WMPSC Logo"
+							 className="header-logo header-logo-wmpsc"
+						 />
+					 </header>
+				 </div>
+				 <main style={{
+					 flex: 1,
+					 minHeight: 0,
+					 display: 'flex',
+					 flexDirection: 'column',
+					 alignItems: 'center',
+					 justifyContent: 'center',
+					 width: '100vw',
+					 boxSizing: 'border-box',
+					 minHeight: 'calc(100vh - 140px)', // header height approx
+				 }}>
+					 <div
+						 style={{
+							 width: '100%',
+							 maxWidth: 520,
+							 margin: '0 auto',
+							 background: 'white',
+							 borderRadius: 20,
+							 boxShadow: '0 8px 32px 0 rgba(30, 41, 59, 0.10)',
+							 padding: '2.5rem 1.5rem',
+							 minHeight: 400,
+							 display: 'flex',
+							 flexDirection: 'column',
+							 alignItems: 'center',
+							 justifyContent: 'center',
+							 boxSizing: 'border-box',
+							 // position: 'relative',
+							 // left: '50%',
+							 // transform: 'translateX(-50%)',
+						 }}
+					 >
+								 <Routes>
+									 <Route path="/admin" element={
+										 <div style={{ width: '100vw', minHeight: 'calc(100vh - 140px)', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', background: 'none' }}>
+											 {adminAuthed ? <AdminPanel /> : <AdminLogin onLogin={handleAdminLogin} />}
+										 </div>
+									 } />
+									 <Route path="*" element={
+										 <div
+											 style={{
+												 width: '100%',
+												 maxWidth: 520,
+												 margin: '0 auto',
+												 background: 'white',
+												 borderRadius: 20,
+												 boxShadow: '0 8px 32px 0 rgba(30, 41, 59, 0.10)',
+												 padding: '2.5rem 1.5rem',
+												 minHeight: 400,
+												 display: 'flex',
+												 flexDirection: 'column',
+												 alignItems: 'center',
+												 justifyContent: 'center',
+												 boxSizing: 'border-box',
+											 }}
+										 >
+											 <Routes>
+												 <Route path="/" element={<RegistrationForm />} />
+												 <Route path="/qr" element={<QRScanner />} />
+												 <Route path="/register" element={<RegistrationForm />} />
+												 <Route path="/congrats" element={<Congrats />} />
+												 <Route path="/video" element={
+													 <ProtectedRoute>
+														 <VideoPlayer />
+													 </ProtectedRoute>
+												 } />
+												 <Route path="/assessment" element={
+													 <ProtectedRoute>
+														 <Assessment />
+													 </ProtectedRoute>
+												 } />
+												 <Route path="/certificate" element={
+													 <ProtectedRoute>
+														 <Certificate />
+													 </ProtectedRoute>
+												 } />
+											 </Routes>
+										 </div>
+									 } />
+								 </Routes>
 				   {/* Footer removed as all logos are now in the header */}
 				</div>
 				</main>

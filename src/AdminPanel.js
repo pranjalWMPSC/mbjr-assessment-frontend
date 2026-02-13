@@ -68,13 +68,59 @@ function AdminPanel() {
   };
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'Inter, Arial, sans-serif', minHeight: '100vh', background: 'linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%)' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+    <div
+      style={{
+        padding: '2rem',
+        fontFamily: 'Inter, Arial, sans-serif',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '1.5rem',
+          width: '100%',
+          maxWidth: 1100,
+        }}
+      >
         <h1 style={{ color: '#6366f1', fontWeight: 900, letterSpacing: 1, margin: 0 }}>Admin Dashboard</h1>
-        <button onClick={handleLogout} style={{ background: '#ef4444', color: '#fff', border: 'none', borderRadius: 8, padding: '0.7rem 1.5rem', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', boxShadow: '0 2px 8px rgba(239,68,68,0.08)' }}>Logout</button>
+        <button
+          onClick={handleLogout}
+          style={{
+            background: '#ef4444',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 8,
+            padding: '0.7rem 1.5rem',
+            fontWeight: 700,
+            fontSize: '1rem',
+            cursor: 'pointer',
+            boxShadow: '0 2px 8px rgba(239,68,68,0.08)',
+          }}
+        >
+          Logout
+        </button>
       </div>
       {/* Tabs */}
-      <div style={{ display: 'flex', gap: 0, marginBottom: '2rem', borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 8px rgba(99,102,241,0.06)', width: 'fit-content', background: '#e0e7ff' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 0,
+          marginBottom: '2rem',
+          borderRadius: 12,
+          overflow: 'hidden',
+          boxShadow: '0 2px 8px rgba(99,102,241,0.06)',
+          width: 'fit-content',
+          background: '#e0e7ff',
+          maxWidth: 1100,
+        }}
+      >
         <button
           onClick={() => setTab('analytics')}
           style={{
@@ -114,12 +160,12 @@ function AdminPanel() {
 
       {/* Tab Content */}
       {tab === 'analytics' && (
-        <div>
+        <div style={{ width: '100%', maxWidth: 1100 }}>
           <AdminCharts registrations={analyticsRegs} />
         </div>
       )}
       {tab === 'registrations' && (
-        <div style={{ marginTop: '1.5rem' }}>
+        <div style={{ marginTop: '1.5rem', width: '100%', maxWidth: 1100 }}>
           <input
             type="text"
             placeholder="Search by name, mobile, org, state..."
@@ -129,7 +175,7 @@ function AdminPanel() {
           />
           {loading ? <p>Loading...</p> : error ? <p style={{ color: 'red' }}>{error}</p> : (
             <>
-            <div style={{ overflowX: 'auto', borderRadius: 12, boxShadow: '0 2px 8px rgba(99,102,241,0.08)' }}>
+            <div style={{ overflowX: 'auto', borderRadius: 12, boxShadow: '0 2px 8px rgba(99,102,241,0.08)', width: '100%' }}>
               <table style={{ minWidth: 900, width: '100%', borderCollapse: 'collapse', background: '#fff', borderRadius: '12px' }}>
                 <thead>
                   <tr style={{ background: '#e0e7ff' }}>
