@@ -34,21 +34,28 @@ function Certificate() {
               <button
                 style={{ background: '#25D366', color: '#fff', border: 'none', borderRadius: '8px', padding: '0.7rem 1.2rem', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', boxShadow: '0 2px 8px rgba(37,211,102,0.08)' }}
                 onClick={async () => {
+                  // Remove NGO and Delhi from orgType/state for message
+                  let displayOrgType = orgType === 'NGO' ? '' : orgType;
+                  let displayState = state === 'Delhi' ? '' : state;
+                  let orgPart = orgName ? `at ${orgName}` : '';
+                  let typePart = displayOrgType ? ` (${displayOrgType}` : '';
+                  let statePart = displayState ? (displayOrgType ? `, ${displayState})` : ` (${displayState})`) : (displayOrgType ? ')' : '');
+                  let certMsg = `I just earned my Jal Rakshak certificate ${orgPart}${typePart}${statePart}! You can also get this certificate at https://mbjrassessment.netlify.app/`;
                   if (navigator.share && pdfUrl) {
                     try {
                       const response = await fetch(pdfUrl);
                       const blob = await response.blob();
-                      const file = new File([blob], `${name.replace(/\s+/g, '_')}_MBJR_Certificate.png`, { type: blob.type });
+                      const file = new File([blob], `${name.replace(/\s+/g, '_')}_Jal_Rakshak_Certificate.png`, { type: blob.type });
                       await navigator.share({
-                        title: 'My MBJR Certificate',
-                        text: `I just earned my certificate for water conservation at ${orgName} (${orgType}, ${state})!`,
+                        title: 'My Jal Rakshak Certificate',
+                        text: certMsg,
                         files: [file],
                       });
                     } catch (err) {
-                      window.open(`https://wa.me/?text=I%20just%20earned%20my%20certificate%20for%20water%20conservation%20at%20${orgName}%20(${orgType},%20${state})!%20See%20my%20certificate%20here:%20${window.location.origin}/certificate`, '_blank');
+                      window.open(`https://wa.me/?text=${encodeURIComponent(certMsg)}`, '_blank');
                     }
                   } else {
-                    window.open(`https://wa.me/?text=I%20just%20earned%20my%20certificate%20for%20water%20conservation%20at%20${orgName}%20(${orgType},%20${state})!%20See%20my%20certificate%20here:%20${window.location.origin}/certificate`, '_blank');
+                    window.open(`https://wa.me/?text=${encodeURIComponent(certMsg)}`, '_blank');
                   }
                 }}
               >Share on WhatsApp</button>

@@ -27,7 +27,7 @@ const questions = [
       'Bedroom',
       'Bathroom',
       'Balcony',
-      'Living room'
+      'Kitchen'
     ],
     answer: 'Bathroom'
   },
@@ -107,6 +107,7 @@ function Assessment() {
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [resultLoading, setResultLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { name, state, orgType, orgName, mobile } = location.state || {};
@@ -119,6 +120,7 @@ function Assessment() {
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
+    setResultLoading(true);
     let sc = 0;
     responses.forEach((resp, idx) => {
       if (resp === questions[idx].answer) sc += 1;
@@ -134,7 +136,10 @@ function Assessment() {
       });
       const data = await res.json();
       setPassed(!!data.eligible);
-      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(true);
+        setResultLoading(false);
+      }, 800); // 800ms delay for smooth loader
     } finally {
       setLoading(false);
     }
@@ -146,7 +151,7 @@ function Assessment() {
           Checking your answers...
         </div>
       )}
-      {!submitted && !loading ? (
+      {!submitted && !loading && !resultLoading ? (
         <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           <h2 style={{ textAlign: 'center', color: '#6366f1', marginBottom: '0.5rem' }}>Assessment</h2>
           {questions.map((q, idx) => (
@@ -164,20 +169,56 @@ function Assessment() {
           ))}
           <button type="submit" style={{ background: 'linear-gradient(90deg, #6366f1 0%, #818cf8 100%)', color: '#fff', border: 'none', borderRadius: '8px', padding: '0.8rem', fontWeight: 600, fontSize: '1.1rem', cursor: 'pointer', boxShadow: '0 2px 8px rgba(99,102,241,0.08)' }}>Submit</button>
         </form>
+      ) : resultLoading ? (
+        <div style={{ width: '100%', maxWidth: 400, textAlign: 'center', margin: '2rem auto', fontWeight: 600, color: '#6366f1', fontSize: '1.2rem' }}>
+          Calculating your result...
+        </div>
       ) : (
         <div style={{ width: '100%', maxWidth: 400, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.2rem', animation: 'fadeIn 1s' }}>
           {passed ? (
             <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-                    <h3 style={{ color: '#22c55e', fontWeight: 700 }}>Congratulations!</h3>
-                    <p style={{ color: '#6366f1', fontWeight: 600 }}>You have scored {score}%</p>
-                    <button type="button" onClick={() => navigate('/certificate', { state: { name, state, orgType, orgName, mobile } })} style={{ background: 'linear-gradient(90deg, #22c55e 0%, #4ade80 100%)', color: '#fff', border: 'none', borderRadius: '8px', padding: '0.8rem', fontWeight: 600, fontSize: '1.1rem', cursor: 'pointer', marginTop: '1rem', boxShadow: '0 2px 8px rgba(34,197,94,0.08)' }}>Next: Get Your Certificate</button>
+              <h3 style={{ color: '#22c55e', fontWeight: 700 }}>Congratulations!</h3>
+              <p style={{ color: '#6366f1', fontWeight: 600 }}>You have scored {score}%</p>
+              <WrongAnswers responses={responses} questions={questions} />
+              <button type="button" onClick={() => navigate('/certificate', { state: { name, state, orgType, orgName, mobile } })} style={{ background: 'linear-gradient(90deg, #22c55e 0%, #4ade80 100%)', color: '#fff', border: 'none', borderRadius: '8px', padding: '0.8rem', fontWeight: 600, fontSize: '1.1rem', cursor: 'pointer', marginTop: '1rem', boxShadow: '0 2px 8px rgba(34,197,94,0.08)' }}>Next: Get Your Certificate</button>
             </div>
           ) : (
-            <p style={{ textAlign: 'center', color: '#ef4444', fontWeight: 600, marginTop: '0.5rem' }}>Sorry, you did not pass. Your Score: {score}%</p>
+            <div style={{ textAlign: 'center', marginTop: '1rem', width: '100%' }}>
+              <p style={{ color: '#ef4444', fontWeight: 600, marginTop: '0.5rem' }}>Sorry, you did not pass. Your Score: {score}%</p>
+              <WrongAnswers responses={responses} questions={questions} />
+            </div>
           )}
-        </div>
-      )}
-    </>
+		</div>
+	  )}
+	</>
   );
 }
+
+// Show wrong answers component
+function WrongAnswers({ responses, questions }) {
+  const wrongs = questions
+    .map((q, idx) => ({
+      idx,
+      question: q.question,
+      user: responses[idx],
+      correct: q.answer
+    }))
+    .filter(item => item.user && item.user !== item.correct);
+  if (wrongs.length === 0) return null;
+  return (
+    <div style={{ marginTop: '1.2rem', width: '100%' }}>
+      <h4 style={{ color: '#ef4444', fontWeight: 700, fontSize: '1.1rem', marginBottom: 8 }}>Review your incorrect answers:</h4>
+      <ul style={{ paddingLeft: 18, margin: 0 }}>
+        {wrongs.map(w => (
+          <li key={w.idx} style={{ marginBottom: 8, fontSize: '1rem', color: '#64748b' }}>
+            <div><strong>Q{w.idx + 1}:</strong> {w.question}</div>
+            <div style={{ color: '#ef4444' }}>Your answer: {w.user}</div>
+            <div style={{ color: '#22c55e' }}>Correct answer: {w.correct}</div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default Assessment;
