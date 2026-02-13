@@ -2,54 +2,104 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 const questions = [
   {
-    question: 'How much water does a high-efficiency washing machine use per load?',
-    options: ['120–150 litres', '80–100 litres', '50–60 litres', '30–40 litres'],
-    answer: '50–60 litres'
+    question: 'Why is water conservation important in India?',
+    options: [
+      'Too much water',
+      'Many districts are water-stressed',
+      'Only for industries',
+      'Only for farmers'
+    ],
+    answer: 'Many districts are water-stressed'
   },
   {
-    question: 'What is the average urban water use per person per day in India?',
-    options: ['90–100 LPCD', '110–120 LPCD', '135–150 LPCD', '180–200 LPCD'],
-    answer: '135–150 LPCD'
+    question: 'On average, how much water does one person use daily at home?',
+    options: [
+      '20–30 liters',
+      '60–70 liters',
+      '135–150 liters',
+      '500 liters'
+    ],
+    answer: '135–150 liters'
   },
   {
-    question: 'Greywater reuse can meet what percentage of household non-potable demand?',
-    options: ['10–20%', '20–30%', '30–40%', '50–60%'],
-    answer: '30–40%'
+    question: 'Which place in the house uses the most water?',
+    options: [
+      'Bedroom',
+      'Bathroom',
+      'Balcony',
+      'Living room'
+    ],
+    answer: 'Bathroom'
   },
   {
-    question: 'Pressure cookers save up to how much water and energy?',
-    options: ['30%', '50%', '60%', '70%'],
-    answer: '70%'
+    question: 'What can save water in toilets?',
+    options: [
+      'Bigger tank',
+      'Dual-flush system',
+      'Leaving tap open',
+      'More pressure pump'
+    ],
+    answer: 'Dual-flush system'
   },
   {
-    question: 'Producing 1 kg of rice requires approximately:',
-    options: ['1,000 litres', '1,500 litres', '2,000 litres', '2,500 litres'],
-    answer: '2,500 litres'
+    question: 'A leaking toilet can waste how much water daily?',
+    options: [
+      '5–10 liters',
+      '50 liters',
+      '200–400 liters',
+      '1 liter'
+    ],
+    answer: '200–400 liters'
   },
   {
-    question: 'A leaking toilet can waste how much water per day?',
-    options: ['50–100 litres', '100–150 litres', '200–400 litres', '500–700 litres'],
-    answer: '200–400 litres'
+    question: 'Which uses less water while washing dishes?',
+    options: [
+      'Running tap',
+      'Filled sink',
+      'Hose pipe',
+      'Shower'
+    ],
+    answer: 'Filled sink'
   },
   {
-    question: 'A recharge pit (1 m × 1 m × 1 m) can recharge annually:',
-    options: ['10,000–15,000 litres', '20,000–25,000 litres', '30,000–50,000 litres', '60,000–80,000 litres'],
-    answer: '30,000–50,000 litres'
+    question: 'RO purifier reject water should be:',
+    options: [
+      'Thrown away',
+      'Stored and reused',
+      'Mixed with drinking water',
+      'Ignored'
+    ],
+    answer: 'Stored and reused'
   },
   {
-    question: 'A 1 mm drop in groundwater over 1 sq. km equals:',
-    options: ['100,000 litres', '500,000 litres', '750,000 litres', '1 million litres'],
-    answer: '1 million litres'
+    question: 'What saves more water while cooking?',
+    options: [
+      'Open boiling',
+      'Pressure cooker',
+      'Frying pan',
+      'Microwave only'
+    ],
+    answer: 'Pressure cooker'
   },
   {
-    question: 'What percentage of wastewater is treated in India?',
-    options: ['15%', '28%', '50%', '72%'],
-    answer: '28%'
+    question: 'What is “virtual water”?',
+    options: [
+      'Water on phone',
+      'Water used to grow food',
+      'Rainwater only',
+      'Tap water'
+    ],
+    answer: 'Water used to grow food'
   },
   {
-    question: 'Non-Revenue Water losses in Indian cities range between:',
-    options: ['10–20%', '20–30%', '30–50%', '60–70%'],
-    answer: '30–50%'
+    question: 'One simple action everyone can start today is:',
+    options: [
+      'Waste water',
+      'Ignore leaks',
+      'Make small changes to save water',
+      'Use more water'
+    ],
+    answer: 'Make small changes to save water'
   }
 ];
 function Assessment() {
@@ -84,8 +134,8 @@ function Assessment() {
       });
       const data = await res.json();
       setPassed(!!data.eligible);
-    } finally {
       setSubmitted(true);
+    } finally {
       setLoading(false);
     }
   };
