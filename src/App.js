@@ -41,18 +41,21 @@ function App() {
 					   display: 'flex',
 					   flexDirection: 'row',
 					   alignItems: 'center',
-					   justifyContent: 'center',
-					   gap: 40,
-					   padding: '1.2rem 0 1.2rem 0',
+					   justifyContent: 'space-between',
+					   padding: '1.2rem 2vw 1.2rem 2vw',
 					   background: 'linear-gradient(90deg, #1a237e 0%, #6366f1 100%)',
 					   borderRadius: '0 0 24px 24px',
 					   boxShadow: '0 4px 24px 0 rgba(30, 41, 59, 0.10)',
 					   margin: '0 0 2.5rem 0',
+					   width: '100%',
+					   maxWidth: 900,
+					   minWidth: 320
 				   }}>
-					   <img src={SkillIndiaLogo} alt="Skill India Logo" style={{ height: 48, objectFit: 'contain', background: 'white', borderRadius: 12, boxShadow: '0 2px 8px #1a237e22', padding: 8 }} />
+					   <img src={SkillIndiaLogo} alt="Skill India Logo" style={{ height: 48, objectFit: 'contain', background: 'white', borderRadius: 12, boxShadow: '0 2px 8px #1a237e22', padding: 8, flex: '0 0 auto' }} />
 					   <div style={{ flex: 1 }} />
-					   <img src={MBJRLogo} alt="Mai Bhi Jal Rakshak Logo" style={{ height: 60, objectFit: 'contain', background: 'white', borderRadius: 12, boxShadow: '0 2px 8px #1a237e22', padding: 8 }} />
+					   <img src={MBJRLogo} alt="Mai Bhi Jal Rakshak Logo" style={{ height: 60, objectFit: 'contain', background: 'white', borderRadius: 12, boxShadow: '0 2px 8px #1a237e22', padding: 8, flex: '0 0 auto' }} />
 					   <div style={{ flex: 1 }} />
+					   <img src={WMPSCLogo} alt="WMPSC Logo" style={{ height: 44, objectFit: 'contain', background: 'white', borderRadius: 12, boxShadow: '0 2px 8px #1a237e22', padding: 8, flex: '0 0 auto' }} />
 				   </header>
 				 <main style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100vw', boxSizing: 'border-box' }}>
 					 <div style={{
